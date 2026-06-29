@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: Movement Service API
+  version: v3
+  description: Event-driven movement management - Project III.
+
+paths:
+  /movements/debit-card:
+    post:
+      summary: Register movement from debit card payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DebitCardMovementRequest'
+      responses:
+        '201':
+          description: Debit card movement registered
+
+  /movements/yanki:
+    post:
+      summary: Register movement from Yanki wallet transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/YankiMovementRequest'
+      responses:
+        '201':
+          description: Yanki movement registered
+
+  /movements/third-party-payment:
+    post:
+      summary: Register movement for third-party credit payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ThirdPartyMovementRequest'
+      responses:
+        '201':
+          description: Third-party payment movement registered
+
+components:
+  schemas:
+    DebitCardMovementRequest:
+      type: object
+      required: [cardId, accountId, amount]
+      properties:
+        cardId: { type: string }
+        accountId: { type: string }
+        amount: { type: number }
+
+    YankiMovementRequest:
+      type: object
+      required: [walletId, amount, direction]
+      properties:
+        walletId: { type: string }
+        amount: { type: number }
+        direction:
+          type: string
+          enum: [SEND, RECEIVE]
+
+    ThirdPartyMovementRequest:
+      type: object
+      required: [creditId, payerCustomerId, amount]
+      properties:
+        creditId: { type: string }
+        payerCustomerId: { type: string }
+        amount: { type: number }

@@ -1,0 +1,71 @@
+openapi: 3.0.3
+info:
+  title: Movement Service API
+  version: v1
+  description: Banking product movement management - Project I.
+
+paths:
+  /movements:
+    get:
+      summary: List all movements
+      responses:
+        '200':
+          description: List of movements
+    post:
+      summary: Register a movement (deposit, withdrawal, charge, payment)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovementCreateRequest'
+      responses:
+        '201':
+          description: Movement registered
+
+  /movements/{id}:
+    get:
+      summary: Get movement by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Movement found
+
+  /products/{productId}/movements:
+    get:
+      summary: Get movements of a product (account or card)
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Movements retrieved
+
+components:
+  schemas:
+    Movement:
+      type: object
+      properties:
+        id: { type: string }
+        productId: { type: string }
+        type: { $ref: '#/components/schemas/MovementType' }
+        amount: { type: number }
+        date: { type: string, format: date-time }
+
+    MovementCreateRequest:
+      type: object
+      required: [productId, type, amount]
+      properties:
+        productId: { type: string }
+        type: { $ref: '#/components/schemas/MovementType' }
+        amount: { type: number }
+
+    MovementType:
+      type: string
+      enum: [DEPOSIT, WITHDRAW, CHARGE, PAYMENT]
