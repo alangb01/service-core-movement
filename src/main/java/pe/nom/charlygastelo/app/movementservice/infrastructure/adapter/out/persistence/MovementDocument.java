@@ -1,19 +1,15 @@
 package pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.out.persistence;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
+import java.time.Instant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pe.nom.charlygastelo.app.movementservice.domain.model.MovementType;
 import pe.nom.charlygastelo.app.movementservice.domain.model.ProductType;
-
-
 
 @Document(collection = "movements")
 @Data
@@ -27,7 +23,6 @@ public class MovementDocument {
 
     private String customerId;
     private String productId;
-
     private ProductType productType;
     private MovementType type;
 
@@ -38,5 +33,5 @@ public class MovementDocument {
     private String description;
     private String sourceService;
 
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 }

@@ -1,4 +1,4 @@
-package pe.nom.charlygastelo.app.movementservice.security;
+package pe.nom.charlygastelo.app.movementservice.infrastructure.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,16 +6,16 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.server.WebFilter;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebFluxSecurity
+//@EnableReactiveMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtFilter;
-
-    public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
+    private final WebFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
@@ -33,7 +33,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyExchange().authenticated()
                 )
-                .addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+                .addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .build();
     }
 }

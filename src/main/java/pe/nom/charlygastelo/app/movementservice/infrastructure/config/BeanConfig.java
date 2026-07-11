@@ -2,12 +2,10 @@ package pe.nom.charlygastelo.app.movementservice.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import lombok.RequiredArgsConstructor;
 import pe.nom.charlygastelo.app.movementservice.application.usecase.CreateMovementUseCase;
 import pe.nom.charlygastelo.app.movementservice.application.usecase.DeleteMovementUseCase;
 import pe.nom.charlygastelo.app.movementservice.application.usecase.GetMovementUseCase;
-import pe.nom.charlygastelo.app.movementservice.application.usecase.ListLastMovementsUseCase;
 import pe.nom.charlygastelo.app.movementservice.application.usecase.ListMovementsUseCase;
 import pe.nom.charlygastelo.app.movementservice.domain.port.MovementEventProducerPort;
 import pe.nom.charlygastelo.app.movementservice.domain.port.MovementRepositoryPort;
@@ -41,12 +39,6 @@ public class BeanConfig {
         return new ListMovementsUseCase(repository);
     }
 
-    @Bean
-    public ListLastMovementsUseCase listLastMovementsUseCase(
-            MovementRepositoryPort repository) {
-
-        return new ListLastMovementsUseCase(repository);
-    }
 
     @Bean
     public DeleteMovementUseCase deleteMovementUseCase(

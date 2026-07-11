@@ -1,10 +1,8 @@
-package pe.nom.charlygastelo.app.movementservice.infrastructure.events.mapper;
+package pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.out.event.mapper;
 
 import java.time.Instant;
 import java.util.UUID;
-
 import org.springframework.stereotype.Component;
-
 import pe.nom.charlygastelo.app.movementservice.domain.model.Movement;
 import pe.nom.charlygastelo.app.shared.avro.dto.MovementCreatedEvent;
 import pe.nom.charlygastelo.app.shared.avro.dto.MovementDeletedEvent;

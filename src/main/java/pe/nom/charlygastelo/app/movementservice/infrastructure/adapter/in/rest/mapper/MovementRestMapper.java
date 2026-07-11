@@ -1,9 +1,7 @@
 package pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.mapper;
 
-import java.time.LocalDateTime;
-
+import java.time.Instant;
 import org.springframework.stereotype.Component;
-
 import pe.nom.charlygastelo.app.movementservice.domain.model.Movement;
 import pe.nom.charlygastelo.app.movementservice.domain.model.MovementType;
 import pe.nom.charlygastelo.app.movementservice.domain.model.ProductType;
@@ -25,7 +23,7 @@ public class MovementRestMapper {
                 request.transactionId(),
                 request.description(),
                 request.sourceService(),
-                LocalDateTime.now()
+                Instant.now()
         );
     }
 

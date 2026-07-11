@@ -3,10 +3,10 @@ package pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import pe.nom.charlygastelo.app.movementservice.application.usecase.*;
 import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.mapper.MovementRestMapper;
@@ -15,13 +15,13 @@ import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.r
 
 @RestController
 @RequestMapping("/movements")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class MovementController {
 
     private final CreateMovementUseCase createUseCase;
     private final GetMovementUseCase getUseCase;
     private final ListMovementsUseCase listUseCase;
-    private final ListLastMovementsUseCase lastMovementsUseCase;
     private final DeleteMovementUseCase deleteUseCase;
     private final MovementRestMapper mapper;
 
@@ -42,24 +42,6 @@ public class MovementController {
     @GetMapping
     public Flowable<MovementResponse> findAll() {
         return listUseCase.all()
-                .map(mapper::toResponse);
-    }
-
-    @GetMapping("/customer/{customerId}")
-    public Flowable<MovementResponse> findByCustomer(@PathVariable String customerId) {
-        return listUseCase.byCustomer(customerId)
-                .map(mapper::toResponse);
-    }
-
-    @GetMapping("/product/{productId}")
-    public Flowable<MovementResponse> findByProduct(@PathVariable String productId) {
-        return listUseCase.byProduct(productId)
-                .map(mapper::toResponse);
-    }
-
-    @GetMapping("/product/{productId}/last-10")
-    public Flowable<MovementResponse> last10(@PathVariable String productId) {
-        return lastMovementsUseCase.last10ByProduct(productId)
                 .map(mapper::toResponse);
     }
 

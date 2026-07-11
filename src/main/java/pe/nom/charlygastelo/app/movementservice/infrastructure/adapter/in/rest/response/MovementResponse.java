@@ -1,7 +1,7 @@
 package pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.response;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record MovementResponse(
         String id,
@@ -14,6 +14,6 @@ public record MovementResponse(
         String transactionId,
         String description,
         String sourceService,
-        LocalDateTime createdAt
+        Instant createdAt
 ) {
 }

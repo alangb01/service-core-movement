@@ -1,7 +1,6 @@
 package pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.out.persistence;
 
 import org.springframework.stereotype.Component;
-
 import pe.nom.charlygastelo.app.movementservice.domain.model.Movement;
 
 @Component

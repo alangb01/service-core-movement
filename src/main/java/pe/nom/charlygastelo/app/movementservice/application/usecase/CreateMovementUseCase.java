@@ -1,8 +1,7 @@
 package pe.nom.charlygastelo.app.movementservice.application.usecase;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
+import java.time.Instant;
 import io.reactivex.rxjava3.core.Single;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +38,7 @@ public class CreateMovementUseCase {
                 movement.transactionId(),
                 movement.description(),
                 movement.sourceService(),
-                LocalDateTime.now()
+                Instant.now()
         );
 
         return repository.save(newMovement)

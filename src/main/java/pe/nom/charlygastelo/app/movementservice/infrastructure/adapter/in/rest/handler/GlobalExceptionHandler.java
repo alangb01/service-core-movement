@@ -1,13 +1,11 @@
 package pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.handler;
 
 import java.time.LocalDateTime;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ServerWebExchange;
-
 import lombok.extern.slf4j.Slf4j;
 import pe.nom.charlygastelo.app.movementservice.domain.exception.InvalidMovementException;
 import pe.nom.charlygastelo.app.movementservice.domain.exception.MovementBusinessException;

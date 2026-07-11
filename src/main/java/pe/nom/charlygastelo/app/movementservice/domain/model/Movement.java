@@ -1,7 +1,7 @@
 package pe.nom.charlygastelo.app.movementservice.domain.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record Movement(
         String id,
@@ -14,5 +14,5 @@ public record Movement(
         String transactionId,
         String description,
         String sourceService,
-        LocalDateTime createdAt
+        Instant createdAt
 ) { }
