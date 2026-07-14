@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import pe.nom.charlygastelo.app.movementservice.domain.model.Movement;
 import pe.nom.charlygastelo.app.shared.avro.dto.MovementCreatedEvent;
 import pe.nom.charlygastelo.app.shared.avro.dto.MovementDeletedEvent;
+import pe.nom.charlygastelo.app.shared.avro.dto.MovementRecordedEvent;
 import pe.nom.charlygastelo.app.shared.avro.dto.MovementRegisterResponseEvent;
 
 @Component
@@ -64,5 +65,21 @@ public class MovementEventMapper {
 
     private String value(String value) {
         return value == null ? "" : value;
+    }
+
+    public MovementRecordedEvent toMovementRecordedEvent(Movement movement) {
+        return MovementRecordedEvent.newBuilder()
+                .setEventId(UUID.randomUUID().toString())
+                .setEventType("MOVEMENT_RECORDED")
+                .setOccurredAt(Instant.now().toString())
+                .setVersion("1.0")
+                .setSource("movement-service")
+                .setTransactionId(value(movement.transactionId()))
+                .setProductId(value(movement.productId()))
+                .setProductType(movement.productType().name())
+                .setAmount(movement.amount().doubleValue())
+                .setMovementType(movement.type().name())
+                .build();
+
     }
 }

@@ -1,6 +1,63 @@
 package pe.nom.charlygastelo.app.movementservice.domain.model;
 
 public enum MovementType {
+    // Universales
+    DEBIT,
     CREDIT,
-    DEBIT
+
+    // Cuentas
+    DEPOSIT,
+    WITHDRAWAL,
+    ACCOUNT_TRANSFER,
+    THIRD_PARTY_TRANSFER,
+    FEE_CHARGE,
+    INTEREST_CHARGE,
+    INTEREST_PAYMENT,
+
+    // Créditos
+    CREDIT_DISBURSEMENT,
+    CREDIT_PAYMENT,
+    CREDIT_INTEREST,
+    CREDIT_WITHDRAWAL,
+    CREDIT_FEE,
+    CREDIT_PENALTY,
+    CREDIT_REVERSAL,
+
+    // Tarjeta de crédito
+    CREDIT_CARD_PURCHASE,
+    CREDIT_CARD_PAYMENT,
+    CREDIT_CARD_INTEREST,
+    CREDIT_CARD_FEE,
+    CREDIT_CARD_CASH_ADVANCE,
+    CREDIT_CARD_REVERSAL,
+
+    // Tarjeta de débito
+    DEBIT_CARD_PURCHASE,
+    DEBIT_CARD_WITHDRAWAL,
+    DEBIT_CARD_PAYMENT,
+    DEBIT_CARD_FEE,
+    DEBIT_CARD_REVERSAL,
+
+    // Yanki
+    YANKI_PAYMENT,
+    YANKI_RECEIVE,
+    YANKI_LINK_DEBIT_CARD,
+    YANKI_FEE,
+    YANKI_REVERSAL,
+
+    // Depósitos a plazo
+    FIXED_TERM_DEPOSIT,
+    FIXED_TERM_WITHDRAWAL,
+    FIXED_TERM_INTEREST,
+
+    // Banco
+    BANK_INCOME,
+    BANK_EXPENSE,
+    BANK_ADJUSTMENT,
+    BANK_REVERSAL,
+
+    // Técnicos
+    REVERSAL,
+    COMPENSATION,
+    ADJUSTMENT
 }

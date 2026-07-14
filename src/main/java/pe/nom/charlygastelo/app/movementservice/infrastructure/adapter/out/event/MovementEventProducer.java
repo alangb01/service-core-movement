@@ -12,6 +12,7 @@ import pe.nom.charlygastelo.app.movementservice.domain.port.MovementEventProduce
 import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.out.event.mapper.MovementEventMapper;
 import pe.nom.charlygastelo.app.shared.avro.dto.MovementCreatedEvent;
 import pe.nom.charlygastelo.app.shared.avro.dto.MovementDeletedEvent;
+import pe.nom.charlygastelo.app.shared.avro.dto.MovementRecordedEvent;
 
 @Slf4j
 @Component
@@ -27,6 +28,9 @@ public class MovementEventProducer implements MovementEventProducerPort {
     @Value("${topic.movement-deleted}")
     private String movementDeletedTopic;
 
+    @Value("${topic.movement-recorded}")
+    private String movementRecordedEvent;
+
     @Override
     public Completable publishMovementCreated(Movement movement) {
         MovementCreatedEvent event = mapper.toMovementCreatedEvent(movement);
@@ -37,6 +41,11 @@ public class MovementEventProducer implements MovementEventProducerPort {
     public Completable publishMovementDeleted(Movement movement) {
         MovementDeletedEvent event = mapper.toMovementDeletedEvent(movement);
         return publish(movementDeletedTopic, movement.id(), event);
+    }
+    @Override
+    public Completable publishMovementRecorded(Movement movement) {
+        MovementRecordedEvent event = mapper.toMovementRecordedEvent(movement);
+        return publish(movementRecordedEvent, movement.id(), event);
     }
 
     private Completable publish(String topic, String key, SpecificRecordBase event) {
