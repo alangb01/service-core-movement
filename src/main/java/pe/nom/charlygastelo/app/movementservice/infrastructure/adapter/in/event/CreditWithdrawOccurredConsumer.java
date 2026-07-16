@@ -10,38 +10,37 @@ import pe.nom.charlygastelo.app.movementservice.application.usecase.RecordMoveme
 import pe.nom.charlygastelo.app.movementservice.domain.model.Movement;
 import pe.nom.charlygastelo.app.movementservice.domain.model.MovementType;
 import pe.nom.charlygastelo.app.movementservice.domain.model.ProductType;
-import pe.nom.charlygastelo.app.shared.avro.dto.AccountDepositOccurredEvent;
+import pe.nom.charlygastelo.app.shared.avro.dto.CreditWithdrawOccurredEvent;
 
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class AccountDepositOccurredConsumer {
+public class CreditWithdrawOccurredConsumer {
 
     private final RecordMovementUseCase recordMovementUseCase;
 
     @KafkaListener(
-            topics = "${topic.account-deposit-occurred}",
+            topics = "${topic.credit-withdraw-occurred}",
             groupId = "movement-service"
     )
-    public void consume(AccountDepositOccurredEvent event) {
+    public void consume(CreditWithdrawOccurredEvent event) {
 
         String txId = event.getTransactionId().toString();
-        log.info("[MOVEMENT] ACCOUNT_DEPOSIT_OCCURRED received. txId={}", txId);
+        log.info("[MOVEMENT] CREDIT_WITHDRAW_OCCURRED received. txId={}", txId);
 
         Movement movement = new Movement(
                 null,
                 event.getCustomerId().toString(),
-                event.getAccountId().toString(),
-                ProductType.ACCOUNT,
-                MovementType.CREDIT,
-                new BigDecimal(event.getAmount().toString()),
-                new BigDecimal(event.getBalance().toString()),
+                event.getCreditId().toString(),
+                ProductType.CREDIT,
+                MovementType.DEBIT,
+                new BigDecimal(event.getAmount()),
+                new BigDecimal(event.getBalance()),
                 event.getTransactionId().toString(),
-                "ACCOUNT_DEPOSIT_OCCURRED",
+                "CREDIT_WITHDRAW_OCCURRED",
                 event.getSource().toString(),
                 Instant.now()
-
         );
 
         recordMovementUseCase.save(movement)
@@ -50,6 +49,5 @@ public class AccountDepositOccurredConsumer {
                         error -> log.error("[MOVEMENT] Error recording movement. txId={}, reason={}",
                                 txId, error.getMessage(), error)
                 );
-
     }
 }

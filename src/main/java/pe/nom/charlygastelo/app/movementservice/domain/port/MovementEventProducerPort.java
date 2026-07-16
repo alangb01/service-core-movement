@@ -9,5 +9,6 @@ public interface MovementEventProducerPort {
 
     Completable publishMovementDeleted(Movement movement);
 
-    Completable publishMovementRecorded(Movement movement);
+    Completable publishMovementSourceRecorded(Movement m);
+    Completable publishMovementTargetRecorded(Movement m);
 }

@@ -43,8 +43,13 @@ public class MovementEventProducer implements MovementEventProducerPort {
         return publish(movementDeletedTopic, movement.id(), event);
     }
     @Override
-    public Completable publishMovementRecorded(Movement movement) {
-        MovementRecordedEvent event = mapper.toMovementRecordedEvent(movement);
+    public Completable publishMovementSourceRecorded(Movement movement) {
+        MovementRecordedEvent event = mapper.toMovementRecordedEvent(movement, "MOVEMENT_SOURCE_RECORDED");
+        return publish(movementRecordedEvent, movement.id(), event);
+    }
+
+    public Completable publishMovementTargetRecorded(Movement movement) {
+        MovementRecordedEvent event = mapper.toMovementRecordedEvent(movement, "MOVEMENT_TARGET_RECORDED");
         return publish(movementRecordedEvent, movement.id(), event);
     }
 
@@ -58,6 +63,7 @@ public class MovementEventProducer implements MovementEventProducerPort {
                         }
                         else {
                             log.info("Movement event published. topic={}, key={}", topic, key);
+                            log.debug("event published {}", event);
                             emitter.onComplete();
                         }
                     });

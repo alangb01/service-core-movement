@@ -10,46 +10,43 @@ import pe.nom.charlygastelo.app.movementservice.application.usecase.RecordMoveme
 import pe.nom.charlygastelo.app.movementservice.domain.model.Movement;
 import pe.nom.charlygastelo.app.movementservice.domain.model.MovementType;
 import pe.nom.charlygastelo.app.movementservice.domain.model.ProductType;
-import pe.nom.charlygastelo.app.shared.avro.dto.AccountDepositOccurredEvent;
-
+import pe.nom.charlygastelo.app.shared.avro.dto.AccountDebitCardPaymentEvent;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class AccountDepositOccurredConsumer {
+public class AccountDebitCardPaymentEventConsumer {
 
     private final RecordMovementUseCase recordMovementUseCase;
 
     @KafkaListener(
-            topics = "${topic.account-deposit-occurred}",
+            topics = "${topic.account-debit-card-payment-occurred}",
             groupId = "movement-service"
     )
-    public void consume(AccountDepositOccurredEvent event) {
+    public void consume(AccountDebitCardPaymentEvent event) {
 
         String txId = event.getTransactionId().toString();
-        log.info("[MOVEMENT] ACCOUNT_DEPOSIT_OCCURRED received. txId={}", txId);
+        log.info("[MOVEMENT] ACCOUNT_DEBIT_CARD_PAYMENT_OCCURRED received. txId={}", txId);
 
         Movement movement = new Movement(
                 null,
                 event.getCustomerId().toString(),
-                event.getAccountId().toString(),
+                event.getSourceAccountId().toString(),
                 ProductType.ACCOUNT,
-                MovementType.CREDIT,
+                MovementType.DEBIT,
                 new BigDecimal(event.getAmount().toString()),
-                new BigDecimal(event.getBalance().toString()),
+                new BigDecimal(event.getSourceBalance().toString()),
                 event.getTransactionId().toString(),
-                "ACCOUNT_DEPOSIT_OCCURRED",
+                "ACCOUNT_DEBIT_CARD_PAYMENT_OCCURRED",
                 event.getSource().toString(),
                 Instant.now()
-
         );
 
         recordMovementUseCase.save(movement)
                 .subscribe(
-                        () -> log.info("[MOVEMENT] Movement recorded successfully. txId={}", txId),
-                        error -> log.error("[MOVEMENT] Error recording movement. txId={}, reason={}",
+                        () -> log.info("[MOVEMENT] Debit card payment movement recorded. txId={}", txId),
+                        error -> log.error("[MOVEMENT] Error recording debit card payment. txId={}, reason={}",
                                 txId, error.getMessage(), error)
                 );
-
     }
 }

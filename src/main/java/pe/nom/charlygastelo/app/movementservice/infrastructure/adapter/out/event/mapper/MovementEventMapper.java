@@ -67,10 +67,10 @@ public class MovementEventMapper {
         return value == null ? "" : value;
     }
 
-    public MovementRecordedEvent toMovementRecordedEvent(Movement movement) {
+    public MovementRecordedEvent toMovementRecordedEvent(Movement movement, String eventType) {
         return MovementRecordedEvent.newBuilder()
                 .setEventId(UUID.randomUUID().toString())
-                .setEventType("MOVEMENT_RECORDED")
+                .setEventType(eventType)
                 .setOccurredAt(Instant.now().toString())
                 .setVersion("1.0")
                 .setSource("movement-service")

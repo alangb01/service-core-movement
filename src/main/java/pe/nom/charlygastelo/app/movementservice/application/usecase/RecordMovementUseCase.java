@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.core.Single;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import pe.nom.charlygastelo.app.movementservice.domain.model.Movement;
+import pe.nom.charlygastelo.app.movementservice.domain.model.MovementType;
 import pe.nom.charlygastelo.app.movementservice.domain.port.MovementEventProducerPort;
 import pe.nom.charlygastelo.app.movementservice.domain.port.MovementRepositoryPort;
 
@@ -20,9 +21,15 @@ public class RecordMovementUseCase {
     public Completable save(Movement movement) {
 
         return movementRepository.save(movement)
-                .flatMap( m ->
-                    producer.publishMovementRecorded(m).andThen(Single.just(m))
-                )
+                .flatMap( m -> {
+                    if (m.type().equals(MovementType.DEBIT)) {
+                        return producer.publishMovementSourceRecorded(m).andThen(Single.just(m));
+                    }
+                    if (m.type().equals(MovementType.CREDIT)) {
+                        return producer.publishMovementTargetRecorded(m).andThen(Single.just(m));
+                    }
+                    return Single.error(new RuntimeException("Movement type not supported"));
+                })
                 .doOnSuccess(savedMovement ->
                         log.info("[MOVEMENT] Movement saved. txId={}, type={}",
                                 savedMovement.transactionId(),
