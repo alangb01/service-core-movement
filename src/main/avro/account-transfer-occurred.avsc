@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "AccountMaintenanceFeeOccurredEvent",
+  "name": "AccountTransferOccurredEvent",
   "namespace": "pe.nom.charlygastelo.app.shared.avro.dto",
   "fields": [
     { "name": "eventId", "type": "string" },
@@ -12,10 +12,15 @@
     { "name": "transactionId", "type": "string" },
     { "name": "customerId", "type": "string" },
 
-    { "name": "accountId", "type": "string" },
-    { "name": "feeAmount", "type": "string" },
+    { "name": "sourceAccountId", "type": "string" },
+    { "name": "targetAccountId", "type": "string" },
 
-    { "name": "balance", "type": "string" },
-    { "name": "available", "type": "string" }
+    { "name": "amount", "type": "double" },
+
+    { "name": "sourceBalance", "type": "double" },
+    { "name": "sourceAvailable", "type": "double" },
+
+    { "name": "targetBalance", "type": "double" },
+    { "name": "targetAvailable", "type": "double" }
   ]
 }

@@ -34,7 +34,7 @@ public class AccountDebitCardPaymentEventConsumer {
                 event.getSourceAccountId().toString(),
                 ProductType.ACCOUNT,
                 MovementType.DEBIT,
-                new BigDecimal(event.getAmount().toString()),
+                new BigDecimal(event.getAmount()),
                 new BigDecimal(event.getSourceBalance().toString()),
                 event.getTransactionId().toString(),
                 "ACCOUNT_DEBIT_CARD_PAYMENT_OCCURRED",

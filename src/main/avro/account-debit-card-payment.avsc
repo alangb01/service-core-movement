@@ -15,7 +15,7 @@
     { "name": "sourceAccountId", "type": "string" },
     { "name": "cardId", "type": "string" },
 
-    { "name": "amount", "type": "string" },
+    { "name": "amount", "type": "double" },
 
     { "name": "sourceBalance", "type": "string" },
     { "name": "sourceAvailable", "type": "string" }
