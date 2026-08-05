@@ -10,7 +10,7 @@ import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.m
 import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.response.MovementResponse;
 
 @RestController
-@RequestMapping("/credit-cards/{creditCardId}")
+@RequestMapping("/api/credit-cards/{creditCardId}")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class CreditCardController {

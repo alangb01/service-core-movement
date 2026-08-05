@@ -14,7 +14,7 @@ import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.r
 import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.response.MovementResponse;
 
 @RestController
-@RequestMapping("/movements")
+@RequestMapping("/api/movements")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class MovementController {

@@ -10,7 +10,7 @@ import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.m
 import pe.nom.charlygastelo.app.movementservice.infrastructure.adapter.in.rest.response.MovementResponse;
 
 @RestController
-@RequestMapping("/accounts/{accountId}")
+@RequestMapping("/api/accounts/{accountId}")
 @SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class AccountController {
